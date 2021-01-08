@@ -6,6 +6,7 @@ const app = express();
 const { db, User } = require('./db/db.js');
 const passport = require('passport');
 
+if (process.env.NODE_ENV === 'development') require('../secrets');
 // const SequelizeStore = require('connect-session-sequelize')(session.Store);
 // const dbStore = new SequelizeStore({ db });
 
@@ -49,6 +50,7 @@ app.use(passport.session());
 
 // Routes
 app.use('/api', require('./api'));
+app.use('/auth', require('./auth'));
 
 // Non-matching API route sends index.html
 app.get('*', (req, res) => {
